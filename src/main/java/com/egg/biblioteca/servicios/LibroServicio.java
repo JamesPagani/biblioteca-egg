@@ -30,12 +30,9 @@ public class LibroServicio {
     private LibroRepositorio libroRepositorio;
 
     // EXTRAS
-    private void validar(String titulo, Integer ejemplares, UUID idAutor, UUID idEditorial) throws MiException{
+    private void validar(String titulo,UUID idAutor, UUID idEditorial) throws MiException{
         if (titulo.isEmpty() || titulo == null) {
             throw new MiException("El titulo no puede estar vacio o ser nulo!");
-        }
-        if (ejemplares == null) {
-            throw new MiException("El numero de ejemplares no puede ser nulo!");
         }
         if (idAutor == null) {
             throw new MiException("Debes proveer un id de Autor!");
@@ -47,8 +44,8 @@ public class LibroServicio {
 
     // CREATE
     @Transactional
-    public void crearLibro(String titulo, Integer ejemplares, UUID idAutor, UUID idEditorial) throws MiException {
-        validar(titulo, ejemplares, idAutor, idEditorial);
+    public void crearLibro(Long isbn,String titulo, Integer ejemplares, UUID idAutor, UUID idEditorial) throws MiException {
+        validar(titulo, idAutor, idEditorial);
         Autor autor = autorRepositorio.findById(idAutor).get();
         Editorial editorial = editorialRepositorio.findById(idEditorial).get();
         Libro libro = new Libro();
@@ -76,7 +73,7 @@ public class LibroServicio {
 
     @Transactional
     public void modificarLibro(String titulo, Integer ejemplares, UUID idAutor, UUID idEditorial, Long idLibro) throws MiException {
-        validar(titulo, ejemplares, idAutor, idEditorial);
+        validar(titulo, idAutor, idEditorial);
         Optional<Libro> respuestaLibro = libroRepositorio.findById(idLibro);
 
         if (respuestaLibro.isPresent()) {

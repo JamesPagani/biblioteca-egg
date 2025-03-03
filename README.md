@@ -16,8 +16,9 @@ Como parte del proceso de aprendizaje del curso "Backend con Java", de Egg, se e
 - Creacion de los servicios para cada entidad.
     - Operaciones basicas de Creacion, Lectura, y Actualizacion de cada tipo de entidad.
 
-### Capa de Controladores
-
+### Capa de Controladores (Parte 1)
+- Creacion de los controladores para cada entidad, junto con las vistas.
+    - Libros quedo parcialmente implementado. Si bien el controlador esta funcionando, la vista no permite seleccionar un los atributos mandatorios que faltan.
 
 ## Informacion tecnica
 - Version de Java: 17
