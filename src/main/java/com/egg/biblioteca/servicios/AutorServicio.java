@@ -44,6 +44,11 @@ public class AutorServicio {
         return autores;
     }
 
+    @Transactional(readOnly = true)
+    public Autor obtenerAutor(UUID id) {
+        return autorRepositorio.getReferenceById(id);
+    }
+
     // UPDATE
     @Transactional
     public void modificarAutor(String nombre, UUID id) throws MiException {

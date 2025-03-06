@@ -20,6 +20,11 @@ Como parte del proceso de aprendizaje del curso "Backend con Java", de Egg, se e
 - Creacion de los controladores para cada entidad, junto con las vistas.
     - Libros quedo parcialmente implementado. Si bien el controlador esta funcionando, la vista no permite seleccionar un los atributos mandatorios que faltan.
 
+### Capa de Controladores (Parte 2)
+- Controlador de Libros funcional.
+- Añadido las paginas para listar y modificar cada entidad.
+- Implementado en los servicios y controladores los metodos necesarios para listar todas las entidades y modificarlas.
+
 ## Informacion tecnica
 - Version de Java: 17
 - Gestor de software/builds: Maven

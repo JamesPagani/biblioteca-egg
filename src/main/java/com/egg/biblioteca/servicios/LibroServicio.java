@@ -68,6 +68,10 @@ public class LibroServicio {
 
         return libros;
     }
+    @Transactional(readOnly = true)
+    public Libro obtenerLibro(Long isbn) {
+        return libroRepositorio.getReferenceById(isbn);
+    }
 
     // UPDATE
 

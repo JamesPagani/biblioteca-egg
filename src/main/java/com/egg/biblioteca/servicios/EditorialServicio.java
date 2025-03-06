@@ -44,6 +44,11 @@ public class EditorialServicio {
         return editoriales;
     }
 
+    @Transactional(readOnly = true)
+    public Editorial obtenerEditorial(UUID id) {
+        return editorialRepositorio.getReferenceById(id);
+    }
+
     // UPDATE
     @Transactional
     public void modificarEditorial(String nombre, UUID id) throws MiException{
