@@ -25,6 +25,11 @@ Como parte del proceso de aprendizaje del curso "Backend con Java", de Egg, se e
 - Añadido las paginas para listar y modificar cada entidad.
 - Implementado en los servicios y controladores los metodos necesarios para listar todas las entidades y modificarlas.
 
+### Spring Security: Roles y Registro de Usuario
+- Entidad, Repositorio, y Controlador de Usuario implementados.
+- Enumerador para Roles añadido.
+- Funcionalidad de Registro de usuarios creado.
+
 ## Informacion tecnica
 - Version de Java: 17
 - Gestor de software/builds: Maven
