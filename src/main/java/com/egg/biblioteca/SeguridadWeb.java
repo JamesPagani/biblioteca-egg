@@ -17,7 +17,28 @@ public class SeguridadWeb {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/css/", "/js/", "/img/", "/**").permitAll()).csrf((csrf) -> csrf.disable());
+        http
+            .authorizeHttpRequests((authorize) -> authorize
+                .requestMatchers("/admin/**").hasRole("ADMIN") // Todo lo que puede acceder el Admin
+                .requestMatchers("/css/**", "/js/**", "/img/**").permitAll() // Recursos
+                .requestMatchers("/", "/login", "/registrar", "/registro").permitAll() // Paginas/Endpoints disponibles para todo el publico
+                .anyRequest().authenticated() // El resto requiere que estes autenticado
+            )
+            .csrf((csrf) -> csrf.disable())
+            .formLogin((form) -> form
+                .loginPage("/login")
+                .loginProcessingUrl("/logincheck")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .defaultSuccessUrl("/inicio", true)
+                .permitAll()
+            )
+            .logout((logout) -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .permitAll()
+            );
+            
         return http.build();
     }
 }

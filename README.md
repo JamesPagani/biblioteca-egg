@@ -30,6 +30,11 @@ Como parte del proceso de aprendizaje del curso "Backend con Java", de Egg, se e
 - Enumerador para Roles añadido.
 - Funcionalidad de Registro de usuarios creado.
 
+### Spring Security: Login y restricciones de accesos
+- Funcionalidad de inicio de sesion implementado.
+- Autenticacion para cada pagina implementada
+- Separacion de informacion para Usuarios y Administradores (no implementado en el front-end)
+
 ## Informacion tecnica
 - Version de Java: 17
 - Gestor de software/builds: Maven

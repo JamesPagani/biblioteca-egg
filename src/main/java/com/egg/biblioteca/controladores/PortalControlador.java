@@ -1,6 +1,7 @@
 package com.egg.biblioteca.controladores;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ public class PortalControlador {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
+    // GET REQUESTS
     @GetMapping("/") // GET /
     public String index() {
         return "index.html";
@@ -32,6 +34,13 @@ public class PortalControlador {
         return "login.html";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+    @GetMapping("/inicio") // GET /inicio
+    public String inicio() {
+        return "inicio.html";
+    }
+
+    // POST REQUESTS
     @PostMapping("/registro") // POST /registro
     public String registro(@RequestParam String nombre, @RequestParam String email, @RequestParam String password, @RequestParam String password2, ModelMap modelo) {
         try {

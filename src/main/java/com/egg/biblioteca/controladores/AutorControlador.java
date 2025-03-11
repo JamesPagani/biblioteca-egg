@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,11 +26,13 @@ public class AutorControlador {
     @Autowired
     private AutorServicio autorServicio;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/registrar") // GET /autor/registrar
     public String registrar() {
         return "autor_form.html";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/lista") // GET /autor/list
     public String listar(ModelMap modelo) {
         List<Autor> autores = autorServicio.listarAutores();
@@ -37,12 +40,14 @@ public class AutorControlador {
         return "autor_list.html";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/modificar/{id}")
     public String modificar(@PathVariable UUID id, ModelMap modelo) {
         modelo.addAttribute("autor", autorServicio.obtenerAutor(id));
         return "autor_modificar.html";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/registro") // POST /autor/registro
     public String registro(@RequestParam String nombre, ModelMap model) {
         try {
@@ -56,6 +61,7 @@ public class AutorControlador {
         return "index.html";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/modificar/{id}")
     public String modificar(@PathVariable UUID id, String nombre, ModelMap modelo) {
         try {

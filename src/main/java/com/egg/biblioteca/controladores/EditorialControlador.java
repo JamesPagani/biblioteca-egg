@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,11 +25,14 @@ public class EditorialControlador {
     @Autowired
     private EditorialServicio editorialServicio;
 
+    
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/registrar") // GET /editorial/registrar
     public String registrar() {
         return "editorial_form.html";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/lista") // GET /editorial/listar
     public String listar(ModelMap model) {
         List<Editorial> editoriales = editorialServicio.listarEditoriales();
@@ -36,12 +40,14 @@ public class EditorialControlador {
         return "editorial_list.html";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/modificar/{id}") // GET /editorial/modificar/{id}
     public String modificar(@PathVariable UUID id, ModelMap modelo) {
         modelo.addAttribute("editorial", editorialServicio.obtenerEditorial(id));
         return "editorial_modificar.html";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/registro") // POST /editorial/registro
     public String registro(@RequestParam String nombre, ModelMap model) {
         try {
@@ -55,6 +61,7 @@ public class EditorialControlador {
         return "index.html";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/modificar/{id}")
     public String modificar(@PathVariable UUID id, String nombre, ModelMap modelo) {
         try {

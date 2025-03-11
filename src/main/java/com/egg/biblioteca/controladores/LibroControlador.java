@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,8 @@ public class LibroControlador {
     @Autowired
     private EditorialServicio editorialServicio;
 
+    
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/registrar") // GET /libro/registrar
     public String registrar(ModelMap model) {
         List<Autor> autores = autorServicio.listarAutores();
@@ -41,6 +44,7 @@ public class LibroControlador {
         return "libro_form.html";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/lista") // GET /libro/lista
     public String listar(ModelMap modelo) {
         List<Libro> libros = libroServicio.listarLibros();
@@ -48,6 +52,7 @@ public class LibroControlador {
         return "libro_list.html";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/modificar/{isbn}") // GET /modificar/{isbn}
     public String modificar(@PathVariable Long isbn, ModelMap modelo) {
         List<Autor> autores = autorServicio.listarAutores();
@@ -58,6 +63,7 @@ public class LibroControlador {
         return "libro_modificar.html";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/registro") // POST /libro/registro
     public String registro(@RequestParam(required = false) Long isbn, @RequestParam String titulo,
             @RequestParam(required = false) Integer ejemplares, @RequestParam UUID idAutor,
@@ -73,6 +79,7 @@ public class LibroControlador {
         return "index.html";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/modificar/{isbn}")
     public String modificar(@PathVariable Long isbn, String titulo, Integer ejemplares, UUID idAutor, UUID idEditorial, ModelMap modelo) {
         try {
