@@ -2,9 +2,10 @@ package com.egg.biblioteca.servicios;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jersey.JerseyProperties.Servlet;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -22,6 +23,7 @@ import com.egg.biblioteca.excepciones.MiException;
 import com.egg.biblioteca.repositorios.UsuarioRepositorio;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 
 @Service
 public class UsuarioServicio implements UserDetailsService{
@@ -43,7 +45,9 @@ public class UsuarioServicio implements UserDetailsService{
         }
     }
 
-    public void crearUsuario(String nombre, String email, String password, String password2) throws MiException {
+    // CREATE
+    @Transactional
+    public void registrar(String nombre, String email, String password, String password2) throws MiException {
         validar(nombre, email, password, password2);
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
@@ -53,7 +57,8 @@ public class UsuarioServicio implements UserDetailsService{
         usuarioRepositorio.save(usuario);
     }
 
-    @Override
+    // READ
+    @Override // Metodo usado por Spring con logica modificada
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
 
@@ -69,4 +74,29 @@ public class UsuarioServicio implements UserDetailsService{
             return null;
         }
     }
+
+    public Usuario obtenerUsuario(UUID id) {
+        return usuarioRepositorio.getReferenceById(id);
+    }
+
+    public List<Usuario> listarUsuarios() {
+        List<Usuario> usuarios = new ArrayList<Usuario>();
+        usuarios = usuarioRepositorio.findAll();
+        return usuarios;
+    }
+
+    // UPDATE
+    @Transactional
+    public void modificarUsuario(UUID id, String nombre, String email, Rol rol) throws MiException {
+        Optional<Usuario> respuesta = usuarioRepositorio.findById(id);
+        if (respuesta.isPresent()) {
+            Usuario usuario = respuesta.get();
+            usuario.setNombre(nombre);
+            usuario.setEmail(email);
+            usuario.setRol(rol);
+            usuarioRepositorio.save(usuario);
+        }
+    }
+
+    // DELETE
 }

@@ -21,7 +21,7 @@ public class SeguridadWeb {
             .authorizeHttpRequests((authorize) -> authorize
                 .requestMatchers("/admin/**").hasRole("ADMIN") // Todo lo que puede acceder el Admin
                 .requestMatchers("/css/**", "/js/**", "/img/**").permitAll() // Recursos
-                .requestMatchers("/", "/login", "/registrar", "/registro").permitAll() // Paginas/Endpoints disponibles para todo el publico
+                .requestMatchers("/", "/login", "/registrar", "/registro", "/error/**").permitAll() // Paginas/Endpoints disponibles para todo el publico
                 .anyRequest().authenticated() // El resto requiere que estes autenticado
             )
             .csrf((csrf) -> csrf.disable())

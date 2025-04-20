@@ -1,4 +1,4 @@
-# Biblioteca (Egg)
+# Biblioteca (Egg) - VERSION WEB
 
 Como parte del proceso de aprendizaje del curso "Backend con Java", de Egg, se esta creando una aplicacion web escrita en Java con Spring y el patron Modelo-Vista-Controlador (MVC) para gestionar los libros de una bilbioteca.
 
@@ -34,6 +34,14 @@ Como parte del proceso de aprendizaje del curso "Backend con Java", de Egg, se e
 - Funcionalidad de inicio de sesion implementado.
 - Autenticacion para cada pagina implementada
 - Separacion de informacion para Usuarios y Administradores (no implementado en el front-end)
+
+### Sesión - HttpSession
+- Implementacion de la clase HttpSession para mandar informacion del usuario al frontend.
+- Validacion de seguridad en el frontend con la integracion de Spring Security para Thymeleaf, permitiendo el uso de las propiedades `sec:authorize`.
+- Los admin ahora tienen acceso a un listado de los usuarios y el poder de modificar sus nombres y roles.
+    - Se ha creado una vista para la funcion respectiva.
+
+### Manejo y Uso de Imágenes
 
 ## Informacion tecnica
 - Version de Java: 17
