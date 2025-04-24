@@ -41,8 +41,6 @@ Como parte del proceso de aprendizaje del curso "Backend con Java", de Egg, se e
 - Los admin ahora tienen acceso a un listado de los usuarios y el poder de modificar sus nombres y roles.
     - Se ha creado una vista para la funcion respectiva.
 
-### Manejo y Uso de Imágenes
-
 ## Informacion tecnica
 - Version de Java: 17
 - Gestor de software/builds: Maven
